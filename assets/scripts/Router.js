@@ -1,19 +1,18 @@
 // router.js
 
 /** Some hints for this router:
-  *   - the functions being passed in should mostly be stored so that
-  *     you can call them later when you want to navigate to a page
-  *   - you should be pushing to history (only when the 'popstate' event
-  *     hasn't fired) so that you can use forward / backward buttons
-  *   - You should be using hashes to update the URL (e.g. 
-  *     https://somewebsite.com#somePage) - the hash is the #somePage part.
-  *     It's accessible via window.location.hash and using them lets you
-  *     easily modify the URL without refreshing the page or anything
-  */
+ *   - it shouldn't be a terribly long file, each function is pretty short.
+ *   - the functions being passed in should mostly be stored so that
+ *     you can call them later when you want to navigate to a page
+ *   - you should be pushing to history (only when the 'popstate' event
+ *     hasn't fired) so that you can use forward / backward buttons
+ *   - You should be using hashes to update the URL (e.g.
+ *     https://somewebsite.com#somePage) - the hash is the #somePage part.
+ *     It's accessible via window.location.hash and using them lets you
+ *     easily modify the URL without refreshing the page or anything
+ */
 
-export class Router {
-  static routes = {};
-
+ export class Router {
   /**
    * Sets up the home function, the page name should always be 'home', which
    * is why no page name variable is passed in.
@@ -21,7 +20,11 @@ export class Router {
    *                            visually
    */
   constructor(homeFunc) {
-    this['home'] = homeFunc;
+    /**
+     * TODO Part 1
+     * Fill in this function as specified in the comment above
+     */
+     this['home'] = homeFunc;
   }
 
   /**
@@ -33,11 +36,10 @@ export class Router {
    */
   addPage(page, pageFunc) {
     /**
-     * TODO Part 1 - Step 2
-     * Just like in the constructor above, store the pageFunc variable inside this
-     * router instance using the 'this' keyword. Substitute 'home' for the variable
-     * page
+     * TODO Part 1
+     * Fill in this function as specified in the comment above
      */
+    this[page] = pageFunc;
   }
 
   /**
@@ -65,5 +67,26 @@ export class Router {
      *     and URL + hash to history
      *  4. Finally, call the stored function for the given page
      */
+    
+    //step 1
+    if (this[page]) pass;
+    else{
+      console.log(`The requested page does not exist: ${page}`);
+      return;
+    }
+
+    //step 2 
+    let hash = "";
+    if (page !== "home") {
+      hash = `#${page}`;;
+    } 
+
+    //step 3
+    if (statePopped==false && window.location.hash !== hash) {
+      window.history.pushState({page: page}, "", `/${hash}`);
+    }
+
+    //step 4
+    this[page]();
   }
 }
